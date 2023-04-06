@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-ro
 
 import Welcome from './Components/Welcome';
 import Profile from './Components/Profile';
+import Play from './Components/Play';
+import MessageBoard from './Components/MessageBoard';
+import SignIn from './Components/Signin';
+import SignUp from './Components/Signup';
 
 class App extends React.Component {
   constructor(props){
@@ -17,36 +21,30 @@ class App extends React.Component {
   render () {
     return (
         <div className="App">
-        <Router>
-          <div>
-            <nav>
-              <ul>
-                <li><Link to="/">Welcome</Link></li>
-                <li><Link to="/profile">Profile</Link></li>
-                <li><Link to="/api/play">Play</Link></li>
-                <li><Link to="/api/messageboard">Messageboard</Link></li>
-                <li><Link to="/api/signin">Signin</Link></li>
-                <li><Link to="/api/signup">Signup</Link></li>
-              </ul>
-            </nav>
-            <Routes>
-              <Route exact path="/" element={<Welcome />} />
-              <Route path="/profile" element={<Profile />} />
-              {/* <Route path="/api/card" component={Play} />
-              <Route path="/api/message" component={Messageboard} />
-              <Route path="/api/login" component={Login} /> */}
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </div>
-        </Router>
-          
+          <Router>
 
+              <nav>
+                <ul>
+                  <li><Link to="/">Welcome</Link></li>
+                  <li><Link to="/api/user">Profile</Link></li>
+                  <li><Link to="/api/card">Play</Link></li>
+                  <li><Link to="/api/messageboard">Messageboard</Link></li>
+                  <li><Link to="/api/signin">Signin</Link></li>
+                  <li><Link to="/api/signup">Signup</Link></li>
+                </ul>
+              </nav>
 
-
-
-
-
-
+              <Routes>
+                <Route exact path="/" element={<Welcome />} />
+                <Route path="/api/user" element={<Profile />} />
+                <Route path="/api/card" element={<Play />} />
+                <Route path="/api/messageboard" element={<MessageBoard />} />
+                <Route path="/api/signin" element={<SignIn />} />
+                <Route path="/api/signup" element={<SignUp />} />
+                {/* <Route path="*" element={<Navigate to="/" />} /> */}
+              </Routes>
+              
+          </Router>
         </div>
       );
   }
