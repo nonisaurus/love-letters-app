@@ -1,6 +1,6 @@
 let apiUrl;
 const expressPort = 5000;
-const apiURL = {
+const apiUrls = {
     development: `http://localhost:5000`,
     production: `https://example`
 }
