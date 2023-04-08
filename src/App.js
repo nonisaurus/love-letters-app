@@ -14,9 +14,16 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-
+      messages: []
     }
   }
+
+  // a function to re render the messages state
+  setMessages = (messages) => {
+    this.setState({
+        messages: messages
+    })
+}
 
   render () {
     return (
@@ -38,7 +45,9 @@ class App extends React.Component {
                 <Route exact path="/" element={<Welcome />} />
                 <Route path="/api/user" element={<Profile />} />
                 <Route path="/api/card" element={<Play />} />
-                <Route path="/api/messageboard" element={<MessageBoard />} />
+                <Route path="/api/messageboard" element={<MessageBoard 
+                                                          messages={this.state.messages} 
+                                                          setMessages={this.setMessages}/>} />
                 <Route path="/api/signin" element={<SignIn />} />
                 <Route path="/api/signup" element={<SignUp />} />
                 {/* <Route path="*" element={<Navigate to="/" />} /> */}

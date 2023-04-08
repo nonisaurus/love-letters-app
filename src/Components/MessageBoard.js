@@ -1,40 +1,46 @@
 import React from 'react';
 import MessagePost from './MessagePost';
+import MessageBoardMessages from './MessageBoardMessages';
 import { getAllMessages } from './apiMessages';
 
 class MessageBoard extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            comments: []
+        
         }
     }
 
+    // Get all messages and display them
     componentDidMount () {
         getAllMessages()
         .then((response) => {
-            console.log('resp', response)
+            console.log(response)
+            this.props.setMessages(response.data.message)
         })
         .catch((error) => {
             console.log('something went wrong', error)
         })
     }
 
-    handleSubmit = (event) => {
-
-    }
-
 
 
   render() {
+    const allMessages = this.props.messages.map((message, index) => (
+        <MessageBoardMessages
+            username={message.userId.username}
+            comment={message.comment}
+            time={message.createdAt}
+            key={index}
+        />
+    ));
 
     return (
-      <div>
+        <div>
             <h1>Message Board</h1>
-            <MessagePost 
-            handleSubmit = {this.handleSubmit} 
-            comment = {this.state.comments}/>
-      </div>
+            <MessagePost />
+            {this.props.messages.length > 0 ? allMessages : <h2>No messages yet</h2>}
+        </div>
     );
   }
 }
