@@ -10,7 +10,7 @@ function Message(props) {
         </div>
         <div>
             <button>Edit</button>
-            <button>Delete</button>
+            <button onClick={(e) => {e.preventDefault(); props.deleteMessage(props.id)}}>Delete</button>
         </div>
         
       </div>

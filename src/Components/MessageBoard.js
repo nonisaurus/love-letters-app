@@ -2,6 +2,7 @@ import React from 'react';
 import MessagePost from './MessagePost';
 import MessageBoardMessages from './MessageBoardMessages';
 import { getAllMessages } from './apiMessages';
+import { deleteMessageById } from './apiMessages';
 
 class MessageBoard extends React.Component {
     constructor(props){
@@ -23,6 +24,19 @@ class MessageBoard extends React.Component {
         })
     }
 
+    // Delete message
+    deleteMessage = (id) => {
+        console.log('delete message >>>', id)
+        deleteMessageById(id)
+        .then((response) => {
+            console.log(response)
+            let newAllMessages = this.props.messages.filter((message) => {
+                return message._id !== id
+            })
+            this.props.setMessages(newAllMessages)
+        })
+        .catch(e => console.log(`error: DELETE >>> ${e}`)) 
+    }
 
 
   render() {
@@ -32,6 +46,8 @@ class MessageBoard extends React.Component {
             comment={message.comment}
             time={message.createdAt}
             key={index}
+            id={message._id}
+            deleteMessage={this.deleteMessage}
         />
     ));
 

@@ -6,3 +6,7 @@ export const getAllMessages = () => {
     return axios.get(`${apiUrl}/api/messages`);
 }
 
+// Delete message by ID
+export const deleteMessageById = (id) => {
+    return axios.delete(`${apiUrl}/api/${id}`)
+}
