@@ -1,6 +1,25 @@
 import apiUrl from "../../apiConfig";
 import axios from "axios";
 
+// AUTH
+export const logInRoute = (username, password) => {
+    return axios.post(`${apiUrl}/api/login`, { username, password })
+        .then(response => {
+            localStorage.setItem("jwt", response.data.token);
+            return response.data
+        });
+}
+
+
+export const logOutRoute = (id) => {
+    return axios.patch(`${apiUrl}/api/logout/${id}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+    });
+}
+
+
 // USERS
 // get all users
 export const getAllUsers = () => {
@@ -14,13 +33,25 @@ export const getUserByUsername = (username) => {
 
 // get users by id
 export const getUserById= (id) => {
-    return axios.get(`${apiUrl}/api/user/${id}`)
+    return axios.get(`${apiUrl}/api/user/${id}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+    })
+}
+
+export const createUser = (username, password) => {
+    return axios.post(`${apiUrl}/api/user`, { username, password })
+        .then(response => {
+            localStorage.setItem("jwt", response.data.token);
+            return response.data
+        });
 }
 
 // create user
-export const createUser = () => {
-    return axios.post(`${apiUrl}/api/user`)
-}
+// export const createUser = () => {
+//     return axios.post(`${apiUrl}/api/user`)
+// }
 
 // update user by id
 export const updateUserById = (id) => {
@@ -57,22 +88,34 @@ export const deleteCardById= (id) => {
 // MESSAGES
 // get all messages
 export const getAllMessages = () => {
-    return axios.get(`${apiUrl}/api/messages`)
+    return axios.get(`${apiUrl}/api/messages`, 
+    {headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`}
+    })
 }
 
 // delete message by ID
 export const deleteMessageById = (id) => {
-    return axios.delete(`${apiUrl}/api/messages/${id}`)
+    return axios.delete(`${apiUrl}/api/messages/${id}`, 
+    {headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`}
+    })
 }
 
 // update message
 export const updateMesageById = (id) => {
-    return axios.get(`${apiUrl}/api/messages/${id}`)
+    return axios.get(`${apiUrl}/api/messages/${id}`, 
+    {headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`}
+    })
 }
 
 // create message
 export const createMessage = () => {
-    return axios.post(`${apiUrl}/api/message`)
+    return axios.post(`${apiUrl}/api/message`, 
+    {headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`}
+    })
 }
 
 

@@ -6,15 +6,53 @@ import Welcome from './Components/Welcome/Welcome';
 import Profile from './Components/Profile/Profile';
 import Play from './Components/Play/Play';
 import MessageBoard from './Components/Messages/MessageBoard';
-import SignIn from './Components/SigninAndOut/Signin';
-import SignUp from './Components/SigninAndOut/Signup';
+import Join from './Components/SigninAndOut/Join';
+import { getUserById } from './Components/API/api';
+import Logout from './Components/SigninAndOut/Logout';
 
 class App extends React.Component {
   constructor(props){
     super(props)
 
     this.state = {
+      auth: false,
       messages: []
+    }
+  }
+
+  //  get user
+  getUser = () => {
+    const userId = localStorage.getItem('user')
+    getUserById(userId)
+    .then((response) => {
+      console.log(response)
+      this.setState({
+        user_id: response.data.user._id,
+        username: response.data.user.username
+      })
+    })
+  }
+
+  // sign in
+  userSignedIn = () => {
+    this.setState({
+      auth: true
+    })
+  }
+
+  userSignedOut = () => {
+    this.setState({
+      auth: false
+    })
+  }
+
+  // component life cycle method
+  componentDidMount = () => {
+    const token = localStorage.getItem("jwt")
+    if(token !== null) {
+      this.setState({
+        auth: true
+      });
     }
   }
 
@@ -36,23 +74,28 @@ class App extends React.Component {
                   <li><Link to="/api/user">Profile</Link></li>
                   <li><Link to="/api/card">Play</Link></li>
                   <li><Link to="/api/messageboard">Messageboard</Link></li>
-                  <li><Link to="/api/signin">Signin</Link></li>
-                  <li><Link to="/api/signup">Signup</Link></li>
+                  <li><Link to="/api/login">{!this.state.auth ? 'Join' : 'Logout'}</Link></li>
                 </ul>
               </nav>
 
               <Routes>
                 <Route exact path="/" element={<Welcome />} />
-                <Route path="/api/user" element={<Profile />} />
-                <Route path="/api/card" element={<Play />} />
-                <Route path="/api/messageboard" element={<MessageBoard 
-                                                          messages={this.state.messages} 
-                                                          setMessages={this.setMessages}/>} />
-                <Route path="/api/signin" element={<SignIn />} />
-                <Route path="/api/signup" element={<SignUp />} />
-                {/* <Route path="*" element={<Navigate to="/" />} /> */}
+                <Route path="/api/user" element={this.state.auth ? 
+                                                          (<Profile userSignedIn={this.userSignedIn} />) :
+                                                          (<Navigate replace to = {"/"} />)} />
+                <Route path="/api/card" element={this.state.auth ? 
+                                                          (<Play />) :
+                                                          (<Navigate replace to = {"/"} />)} />
+                <Route path="/api/messageboard" element={this.state.auth ? 
+                                                          (<MessageBoard  messages={this.state.messages} 
+                                                                          setMessages={this.setMessages}/>) :
+                                                          (<Navigate replace to = {"/"} />)} />
+                <Route path="/api/login" element={!this.state.auth ? 
+                                                  (<Join userSignedIn={() => this.userSignedIn()}/>) : 
+                                                  (<Logout  userSignedIn={this.userSignedIn}
+                                                            userSignedOut={this.userSignedOut}/>)}/>
+
               </Routes>
-              
           </Router>
         </div>
       );
