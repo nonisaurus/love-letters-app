@@ -1,6 +1,6 @@
 import React from 'react';
 
-class MessagePost extends React.Component {
+class PostNewMessage extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -37,4 +37,4 @@ class MessagePost extends React.Component {
   }
 }
 
-export default MessagePost;
+export default PostNewMessage;

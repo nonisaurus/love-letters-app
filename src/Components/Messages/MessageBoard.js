@@ -1,8 +1,8 @@
 import React from 'react';
-import MessagePost from './MessagePost';
-import MessageBoardMessages from './MessageBoardMessages';
-import { getAllMessages } from './apiMessages';
-import { deleteMessageById } from './apiMessages';
+import PostNewMessage from './PostNewMessage';
+import Message from './Message';
+import { getAllMessages } from '../API/api';
+import { deleteMessageById } from '../API/api';
 
 class MessageBoard extends React.Component {
     constructor(props){
@@ -41,7 +41,7 @@ class MessageBoard extends React.Component {
 
   render() {
     const allMessages = this.props.messages.map((message, index) => (
-        <MessageBoardMessages
+        <Message
             username={message.userId.username}
             comment={message.comment}
             time={message.createdAt}
@@ -54,7 +54,7 @@ class MessageBoard extends React.Component {
     return (
         <div>
             <h1>Message Board</h1>
-            <MessagePost />
+            <PostNewMessage />
             {this.props.messages.length > 0 ? allMessages : <h2>No messages yet</h2>}
         </div>
     );

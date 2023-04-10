@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 
-import Welcome from './Components/Welcome';
-import Profile from './Components/Profile';
-import Play from './Components/Play';
-import MessageBoard from './Components/MessageBoard';
-import SignIn from './Components/Signin';
-import SignUp from './Components/Signup';
+import Welcome from './Components/Welcome/Welcome';
+import Profile from './Components/Profile/Profile';
+import Play from './Components/Play/Play';
+import MessageBoard from './Components/Messages/MessageBoard';
+import SignIn from './Components/SigninAndOut/Signin';
+import SignUp from './Components/SigninAndOut/Signup';
 
 class App extends React.Component {
   constructor(props){
