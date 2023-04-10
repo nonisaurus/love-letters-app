@@ -48,10 +48,6 @@ export const createUser = (username, password) => {
         });
 }
 
-// create user
-// export const createUser = () => {
-//     return axios.post(`${apiUrl}/api/user`)
-// }
 
 // update user by id
 export const updateUserById = (id) => {

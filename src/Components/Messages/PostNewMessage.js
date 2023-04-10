@@ -21,6 +21,9 @@ class PostNewMessage extends React.Component {
             inputValue: ''
         })
     }
+  
+ 
+
 
   render() {
     return (

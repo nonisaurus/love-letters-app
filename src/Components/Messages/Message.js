@@ -10,9 +10,9 @@ function Message(props) {
         </div>
         <div>
             <button>Edit</button>
-            <button /* onClick={(e) => {e.preventDefault(); props.deleteMessage(props.id)}} */ >Delete</button>
+            <button onClick={(e) => {e.preventDefault(); props.deleteMessage(props.id)}}>Delete</button>
         </div>
-        
+        {/*  */}
       </div>
     );
   }

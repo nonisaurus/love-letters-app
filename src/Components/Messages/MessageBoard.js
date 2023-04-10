@@ -16,7 +16,6 @@ class MessageBoard extends React.Component {
     componentDidMount () {
         getAllMessages()
         .then((response) => {
-            console.log(response)
             this.props.setMessages(response.data.message)
         })
         .catch((error) => {
@@ -29,13 +28,15 @@ class MessageBoard extends React.Component {
         console.log('delete message >>>', id)
         deleteMessageById(id)
         .then((response) => {
-            console.log(response)
+            console.log('delete response', response)
             let newAllMessages = this.props.messages.filter((message) => {
+                console.log('message _id', message._id)
+                console.log('message id >>', id)
                 return message._id !== id
             })
             this.props.setMessages(newAllMessages)
         })
-        .catch(e => console.log(`error: DELETE >>> ${e}`)) 
+        .catch(e => console.log(`Error in message delete ${e}`)) 
     }
 
 

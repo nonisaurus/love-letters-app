@@ -10,7 +10,6 @@ class Logout extends React.Component {
     }
 
     logOut = (event) => {
-        console.log(localStorage.getItem('user'))
         logOutRoute(localStorage.getItem('user'))
         .then((response) => {
             window.localStorage.clear();
