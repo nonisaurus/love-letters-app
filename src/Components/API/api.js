@@ -107,8 +107,9 @@ export const updateMesageById = (id) => {
 }
 
 // create message
-export const createMessage = () => {
-    return axios.post(`${apiUrl}/api/message`, 
+export const createMessage = (messageData) => {
+    const message = {userId: `${localStorage.getItem("user")}` , messageData}
+    return axios.post(`${apiUrl}/api/message`, message,
     {headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`}
     })
