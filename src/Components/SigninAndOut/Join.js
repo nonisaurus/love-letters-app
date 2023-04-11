@@ -10,14 +10,13 @@ class Join extends React.Component {
         }
     }
 
-
   render() {
     return (
       <div>
             <h1>Join!</h1>
             <div>
                 < SignIn userSignedIn={this.props.userSignedIn}/>
-                <SignUp onSignUpSuccess={this.handleSignUpSuccess} />
+                <SignUp  />
             </div>
             
       </div>
