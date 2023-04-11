@@ -44,11 +44,11 @@ class SignUp extends React.Component {
           createUser(this.state.username, this.state.password)      
           .then((response) => {
               this.setState({
-                  signUpMessage: "Sign up successful!",
+                  signUpMessage: "Sign up successful! Please sign in!",
                   username: '',
                   password: ''
               })
-              this.props.onSignUpSuccess()
+              // this.props.onSignUpSuccess()
           })
       } else {
           this.setState({
