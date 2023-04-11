@@ -32,11 +32,12 @@ class SignIn extends React.Component {
   }
 
   handleSignin = () => {
+    
     logInRoute(this.state.username, this.state.password)
         .then((response) => {
-          console.log('handlesignin response', response)
             localStorage.setItem("jwt", response.token);
             localStorage.setItem("user", response.userId);
+            localStorage.setItem("username", response.username);
             this.props.userSignedIn()
             this.setState({
               username: '',
