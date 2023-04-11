@@ -13,18 +13,7 @@ class PostNewMessage extends React.Component {
             inputValue: event.target.value
         })
     }
-
-    try = (event) => {
-        event.preventDefault();
-        console.log("hey it worked")
-        this.setState({
-            inputValue: ''
-        })
-    }
   
- 
-
-
   render() {
     return (
       <div>
@@ -33,7 +22,7 @@ class PostNewMessage extends React.Component {
             Leave your comment here:
             <input type="text" value={this.state.inputValue} onChange={this.handleChange} />
             </label>
-            <input type="button" value="Post" onClick={this.try}/>
+            <input type="button" value="Post" onClick={(e) => {e.preventDefault(); this.props.handleSubmit(this.state.inputValue)}}/>
         </form>
       </div>
     );

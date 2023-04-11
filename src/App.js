@@ -16,7 +16,9 @@ class App extends React.Component {
 
     this.state = {
       auth: false,
-      messages: []
+      messages: [],
+      username: '',
+      user_id: ''
     }
   }
 
@@ -25,7 +27,6 @@ class App extends React.Component {
     const userId = localStorage.getItem('user')
     getUserById(userId)
     .then((response) => {
-      console.log(response)
       this.setState({
         user_id: response.data.user._id,
         username: response.data.user.username
@@ -35,11 +36,13 @@ class App extends React.Component {
 
   // sign in
   userSignedIn = () => {
+    this.getUser()
     this.setState({
       auth: true
     })
   }
 
+  // sign out
   userSignedOut = () => {
     this.setState({
       auth: false
@@ -88,10 +91,12 @@ class App extends React.Component {
                                                           (<Navigate replace to = {"/"} />)} />
                 <Route path="/api/messageboard" element={this.state.auth ? 
                                                           (<MessageBoard  messages={this.state.messages} 
-                                                                          setMessages={this.setMessages}/>) :
+                                                                          setMessages={this.setMessages}
+                                                                          getUser={this.getUser}
+                                                                          username={this.state.username}/>) :
                                                           (<Navigate replace to = {"/"} />)} />
                 <Route path="/api/login" element={!this.state.auth ? 
-                                                  (<Join userSignedIn={() => this.userSignedIn()}/>) : 
+                                                  (<Join userSignedIn={this.userSignedIn}/>) : 
                                                   (<Logout  userSignedIn={this.userSignedIn}
                                                             userSignedOut={this.userSignedOut}/>)}/>
 

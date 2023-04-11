@@ -1,4 +1,8 @@
+import DeleteBtn from "./DeleteBtn";
+import EditBtn from "./EditBtn";
+
 function Message(props) {
+
     return (
       <div>
         <div>
@@ -6,13 +10,14 @@ function Message(props) {
         </div>
         <div>
             <p>{props.comment}</p>
-            <p>{props.time}</p>
         </div>
         <div>
-            <button>Edit</button>
-            <button onClick={(e) => {e.preventDefault(); props.deleteMessage(props.id)}}>Delete</button>
+          {localStorage.getItem("username") === props.username ? (< EditBtn id={props.id}/>) : null }
+          {localStorage.getItem("username") === props.username ? (< DeleteBtn   id={props.id}
+                                                                                deleteMessage={props.deleteMessage}/>) : null }
+            
+            
         </div>
-        {/*  */}
       </div>
     );
   }
