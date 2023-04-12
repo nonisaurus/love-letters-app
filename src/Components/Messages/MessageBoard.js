@@ -47,15 +47,10 @@ class MessageBoard extends React.Component {
     }
 
     // Update message
-    updateMessage = (message, comment) => {
-        updateMesageById(message, comment)
+    updateMessage = (commentId, comment) => {
+        updateMesageById(commentId, comment)
         .then((response) => {
-            let newMessage = {
-                "comment": comment, 
-                "userId": localStorage.getItem("user"),
-                "_id": message
-            }
-        })  
+            console.log('response >', response)})  
         .catch(e => console.log(`error: UPDATE >>> ${e}`))
     }
 
