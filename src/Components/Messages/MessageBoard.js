@@ -48,7 +48,7 @@ class MessageBoard extends React.Component {
         updateMesageById(commentId, comment)
         .then((response) => {
             console.log('response >', response)})  
-        .catch(e => console.log(`error: UPDATE >>> ${e}`))
+        .catch(e => console.log(`error: UPDATE MESSAGE >>> ${e}`))
     }
 
     // Delete message

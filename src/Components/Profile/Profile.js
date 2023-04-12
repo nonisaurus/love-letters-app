@@ -1,41 +1,46 @@
 import React from 'react';
 import EditableProfile from './EditableProfile';
 import ReadOnlyProfile from './ReadOnlyProfile';
-import EditProfile from './EditProfile';
-import DeleteProfile from './DeleteProfile';
-import { getUserById } from '../API/api';
+import EditProfileBtn from './EditProfileBtn';
+import DeleteProfileBtn from './DeleteProfileBtn';
+import { getUserById, updateUserById } from '../API/api';
 
 class Profile extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            username: '',
-            email: '',
-            password: '',
-            firstName: '',
-            lastName: '',
-            dateOfBirth: '',
-            bio: '',
-            points: '',
+            user: {
+                username: '',
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                dateOfBirth: '',
+                bio: '',
+                points: ''},
             isEdit: 'edit'
         }
 
-        this.handleEditState = this.handleEditState.bind(this);
-
+        this.handleEditState = this.handleEditState.bind(this)
+        this.updateProfile = this.updateProfile.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
 
+    // display profile info
     componentDidMount () {
         getUserById(localStorage.getItem("user"))
         .then((response) => {
             this.setState({
-                username: response.data.user.username,
-                email: response.data.user.email,
-                password: response.data.user.password,
-                firstName: response.data.user.firstName,
-                lastName: response.data.user.lastName,
-                dateOfBirth: response.data.user.DOB,
-                bio: response.data.user.bio,
-                points: response.data.user.points
+                user:{
+                    username: response.data.user.username,
+                    email: response.data.user.email,
+                    password: response.data.user.password,
+                    firstName: response.data.user.firstName,
+                    lastName: response.data.user.lastName,
+                    dateOfBirth: response.data.user.dateOfBirth,
+                    bio: response.data.user.bio,
+                    points: response.data.user.points
+                }
             })
         })
         .catch((error) => {
@@ -43,6 +48,21 @@ class Profile extends React.Component {
         })
     }
 
+    // save changed inputs
+    handleChange = (event) => {
+        const value = event.target.value;
+        const key = event.target.getAttribute('data-name');
+
+        this.setState(prevState => ({
+            user:{
+                ...prevState.user,
+                [key]: value
+            }
+        }))
+
+    }
+
+    // change state for disabled true and false for editing
     handleEditState(event) {
         if (event === 'edit'){
             this.setState({
@@ -55,6 +75,16 @@ class Profile extends React.Component {
         }
     }
 
+    // edit profile info
+    updateProfile = (id) => {
+        updateUserById(id, this.state.user)
+        .then((response) => {
+            console.log('response >', response)
+        })  
+        .catch(e => console.log(`error: UPDATE PROFILE >>> ${e}`))
+    }
+
+
 
 
 
@@ -63,20 +93,31 @@ class Profile extends React.Component {
       <div>
         <h1>Profile</h1>
         {this.state.isEdit === 'edit' ? 
-        (<ReadOnlyProfile   username={this.state.username}
-                            email={this.state.email}
-                            password={this.state.password}
-                            firstName={this.state.firstName}
-                            lastName={this.state.lastName}
-                            dateOfBirth={this.state.dateOfBirth}
-                            bio={this.state.bio}
-                            points={this.state.points}/>) :  
-        (<EditableProfile />)}
+        (<ReadOnlyProfile   username={this.state.user.username}
+                            email={this.state.user.email}
+                            password={this.state.user.password}
+                            firstName={this.state.user.firstName}
+                            lastName={this.state.user.lastName}
+                            dateOfBirth={this.state.user.dateOfBirth}
+                            bio={this.state.user.bio}
+                            points={this.state.user.points}/>) :  
+
+        (<EditableProfile   username={this.state.user.username}
+                            email={this.state.user.email}
+                            password={this.state.user.password}
+                            firstName={this.state.user.firstName}
+                            lastName={this.state.user.lastName}
+                            dateOfBirth={this.state.user.dateOfBirth}
+                            bio={this.state.user.bio}
+                            points={this.state.user.points}
+                            handleChange={this.handleChange}
+                            />)}
         
        
-        <EditProfile    handleEditState={this.handleEditState} 
-                        isEdit={this.state.isEdit}/>
-        <DeleteProfile />
+        <EditProfileBtn handleEditState={this.handleEditState} 
+                        isEdit={this.state.isEdit}
+                        updateProfile={this.updateProfile}/>
+        <DeleteProfileBtn />
 
     </div>
     );

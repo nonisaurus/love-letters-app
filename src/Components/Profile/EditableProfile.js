@@ -14,6 +14,8 @@ const EditableProfile = (props) => {
                                     name='Username' 
                                     placeholder='provide username'
                                     defaultValue={props.username}
+                                    data-name="username"
+                                    onChange={(e)=>{props.handleChange(e)}}
                             />
                         </td>
                     </tr>
@@ -25,6 +27,8 @@ const EditableProfile = (props) => {
                                     name='Email' 
                                     placeholder='provide email'
                                     defaultValue={props.email}
+                                    data-name="email"
+                                    onChange={(e)=>{props.handleChange(e)}}
                             />
                         </td>
                     </tr>
@@ -36,6 +40,8 @@ const EditableProfile = (props) => {
                                     name='Password' 
                                     placeholder='cant change right now'
                                     defaultValue='******'
+                                    data-name="password"
+                                    onChange={(e)=>{props.handleChange(e)}}
                             />
                         </td>
                     </tr>
@@ -47,6 +53,8 @@ const EditableProfile = (props) => {
                                     name='FirstName' 
                                     placeholder='provide first name'
                                     defaultValue={props.firstName}
+                                    data-name="firstName"
+                                    onChange={(e)=>{props.handleChange(e)}}
                             />
                         </td>
                     </tr>
@@ -58,6 +66,8 @@ const EditableProfile = (props) => {
                                     name='LastName' 
                                     placeholder='provide last name'
                                     defaultValue={props.lastName}
+                                    data-name="lastName"
+                                    onChange={(e)=>{props.handleChange(e)}}
                             />
                         </td>
                     </tr>
@@ -69,6 +79,8 @@ const EditableProfile = (props) => {
                                     name='DOB' 
                                     placeholder='provide date of birth'
                                     defaultValue={props.dateOfBirth}
+                                    data-name="dateOfBirth"
+                                    onChange={(e)=>{props.handleChange(e)}}
                             />
                         </td>
                     </tr>
@@ -80,6 +92,8 @@ const EditableProfile = (props) => {
                                     name='BIO' 
                                     placeholder='provide biography'
                                     defaultValue={props.bio}
+                                    data-name="bio"
+                                    onChange={(e)=>{props.handleChange(e)}}
                             />
                         </td>
                     </tr>

@@ -50,8 +50,13 @@ export const createUser = (username, password) => {
 
 
 // update user by id
-export const updateUserById = (id) => {
-    return axios.patch(`${apiUrl}/api/users/${id}`)
+export const updateUserById = (id, newUserObj) => {
+
+    return axios.put(`${apiUrl}/api/users/${id}`, newUserObj, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+    })
 }
 
 // delete user by id
