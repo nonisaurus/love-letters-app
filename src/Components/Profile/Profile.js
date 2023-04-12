@@ -1,4 +1,9 @@
 import React from 'react';
+import EditableProfile from './EditableProfile';
+import ReadOnlyProfile from './ReadOnlyProfile';
+import EditProfile from './EditProfile';
+import DeleteProfile from './DeleteProfile';
+import { getUserById } from '../API/api';
 
 class Profile extends React.Component {
     constructor(props){
@@ -11,82 +16,69 @@ class Profile extends React.Component {
             lastName: '',
             dateOfBirth: '',
             bio: '',
-            inputField: [],
-            value: '',
-            isEdit: false
+            points: '',
+            isEdit: 'edit'
         }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
+        this.handleEditState = this.handleEditState.bind(this);
+
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
+    componentDidMount () {
+        getUserById(localStorage.getItem("user"))
+        .then((response) => {
+            this.setState({
+                username: response.data.user.username,
+                email: response.data.user.email,
+                password: response.data.user.password,
+                firstName: response.data.user.firstName,
+                lastName: response.data.user.lastName,
+                dateOfBirth: response.data.user.DOB,
+                bio: response.data.user.bio,
+                points: response.data.user.points
+            })
+        })
+        .catch((error) => {
+            console.log('something went wrong in profile >>>', error)
         })
     }
 
-    handleEdit() {
-        this.setState({
-            isEdit: true
+    handleEditState(event) {
+        if (event === 'edit'){
+            this.setState({
+            isEdit: 'edit'
         })
-      }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.setState({
-            isEdit: false
-        })
+        } else if (event === 'save'){
+            this.setState({
+                isEdit: 'save'
+            })
+        }
     }
+
+
+
 
   render() {
-
     return (
       <div>
-        <div>
-            <h1>Profile</h1>
-        </div>
-        <div>
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Username:
-                    {!this.state.isEdit ? (
-                        <>
-                            <button type="button" onClick={this.handleEdit}>Edit</button>
-                        </>
-                    ) : (
-                        <>
-                            <input type="text" name="username" value={this.state.username} onChange={this.handleSubmit} />
-                            <input type="submit" value="Save" />
-                        </>
-                    )}
-                </label>
-                <label>
-                    Email:
-                    {!this.state.isEdit ? (
-                        <>
-                            <button type="button" onClick={this.handleEdit}>Edit</button>
-                        </>
-                    ) : (
-                        <>
-                            <input type="text" name="username" value={this.state.username} onChange={this.handleSubmit} />
-                            <input type="submit" value="Save" />
-                        </>
-                    )}
-                </label>
-            </form>
+        <h1>Profile</h1>
+        {this.state.isEdit === 'edit' ? 
+        (<ReadOnlyProfile   username={this.state.username}
+                            email={this.state.email}
+                            password={this.state.password}
+                            firstName={this.state.firstName}
+                            lastName={this.state.lastName}
+                            dateOfBirth={this.state.dateOfBirth}
+                            bio={this.state.bio}
+                            points={this.state.points}/>) :  
+        (<EditableProfile />)}
+        
+       
+        <EditProfile    handleEditState={this.handleEditState} 
+                        isEdit={this.state.isEdit}/>
+        <DeleteProfile />
 
-            <h5>Username</h5>
-            <h5>Email</h5>
-            <h5>Password</h5>
-            <h5>First Name</h5>
-            <h5>Last Name</h5>
-            <h5>Date of birth</h5>
-            <h5>Bio</h5>
-            <h5>Points</h5>
-        </div>
-      </div>
+    </div>
     );
   }
 }
