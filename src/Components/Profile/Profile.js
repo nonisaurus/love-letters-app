@@ -3,7 +3,7 @@ import EditableProfile from './EditableProfile';
 import ReadOnlyProfile from './ReadOnlyProfile';
 import EditProfileBtn from './EditProfileBtn';
 import DeleteProfileBtn from './DeleteProfileBtn';
-import { getUserById, updateUserById } from '../API/api';
+import { getUserById, updateUserById, deleteUserById } from '../API/api';
 
 class Profile extends React.Component {
     constructor(props){
@@ -24,6 +24,7 @@ class Profile extends React.Component {
         this.handleEditState = this.handleEditState.bind(this)
         this.updateProfile = this.updateProfile.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.deleteProfile = this.deleteProfile.bind(this)
     }
 
     // display profile info
@@ -84,7 +85,20 @@ class Profile extends React.Component {
         .catch(e => console.log(`error: UPDATE PROFILE >>> ${e}`))
     }
 
-
+    // delete user
+    deleteProfile = () => {
+        const userId = localStorage.getItem('user')
+        console.log('id', userId)
+        deleteUserById(userId)
+        .then((response) => {
+            console.log('response >', response)
+            localStorage.removeItem('user')
+            localStorage.removeItem('username')
+            localStorage.removeItem('jwt')
+            this.props.userSignedOut()
+        })
+        .catch(e => console.log(`error: DELETE PROFILE >>> ${e}`))
+    }
 
 
 
@@ -117,7 +131,7 @@ class Profile extends React.Component {
         <EditProfileBtn handleEditState={this.handleEditState} 
                         isEdit={this.state.isEdit}
                         updateProfile={this.updateProfile}/>
-        <DeleteProfileBtn />
+        <DeleteProfileBtn deleteProfile={this.deleteProfile}/>
 
     </div>
     );

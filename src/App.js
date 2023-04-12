@@ -84,7 +84,8 @@ class App extends React.Component {
               <Routes>
                 <Route exact path="/" element={<Welcome />} />
                 <Route path="/api/user" element={this.state.auth ? 
-                                                          (<Profile userSignedIn={this.userSignedIn} />) :
+                                                          (<Profile userSignedIn={this.userSignedIn}
+                                                                    userSignedOut={this.userSignedOut} />) :
                                                           (<Navigate replace to = {"/"} />)} />
                 <Route path="/api/card" element={this.state.auth ? 
                                                           (<Play />) :

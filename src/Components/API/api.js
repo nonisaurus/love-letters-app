@@ -40,6 +40,7 @@ export const getUserById= (id) => {
     })
 }
 
+// create user
 export const createUser = (username, password) => {
     return axios.post(`${apiUrl}/api/user`, { username, password })
         .then(response => {
@@ -47,7 +48,6 @@ export const createUser = (username, password) => {
             return response.data
         });
 }
-
 
 // update user by id
 export const updateUserById = (id, newUserObj) => {
@@ -61,7 +61,11 @@ export const updateUserById = (id, newUserObj) => {
 
 // delete user by id
 export const deleteUserById = (id) => {
-    return axios.delete(`${apiUrl}/api/user/${id}`)
+    return axios.delete(`${apiUrl}/api/user/${id}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+    })
 }
 
 // CARDS
