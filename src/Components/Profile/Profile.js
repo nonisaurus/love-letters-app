@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import apiUrl from "../../apiConfig";
 
 class Profile extends React.Component {
     constructor(props){

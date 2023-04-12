@@ -19,9 +19,6 @@ class Welcome extends React.Component {
                 <p>github icon</p>
             </div>
         </div>
-        <div>
-            <img src=''></img>
-        </div>
       </div>
     );
   }

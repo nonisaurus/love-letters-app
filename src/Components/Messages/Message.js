@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import DeleteBtn from "./DeleteBtn";
 import EditBtn from "./EditBtn";
 

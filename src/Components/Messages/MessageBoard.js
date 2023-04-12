@@ -2,8 +2,6 @@ import React from 'react';
 import PostNewMessage from './PostNewMessage';
 import Message from './Message';
 import { getAllMessages, updateMesageById, deleteMessageById, createMessage} from '../API/api';
-// import { getUserById } from '../API/api';
-
 
 class MessageBoard extends React.Component {
     constructor(props){
@@ -11,7 +9,6 @@ class MessageBoard extends React.Component {
         this.state = {
 
         }
-
         this.deleteMessage = this.deleteMessage.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.updateMessage = this.updateMessage.bind(this)
@@ -72,7 +69,7 @@ class MessageBoard extends React.Component {
         <Message
             username={message.userId.username}
             comment={message.comment}
-            key={index}
+            key={message._id}
             id={message._id}
             userId={message.userId}
             deleteMessage={this.deleteMessage}

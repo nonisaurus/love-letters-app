@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import apiUrl from '../../apiConfig';
 import { logInRoute } from '../API/api';
 
 class SignIn extends React.Component {

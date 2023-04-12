@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import apiUrl from '../../apiConfig';
 import { getUserByUsername } from '../../Components/API/api';
 import { createUser } from '../../Components/API/api';
 
