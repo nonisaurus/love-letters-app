@@ -99,8 +99,9 @@ export const deleteMessageById = (id) => {
 }
 
 // update message
-export const updateMesageById = (id) => {
-    return axios.get(`${apiUrl}/api/messages/${id}`, 
+export const updateMesageById = (id, comment) => {
+    const updateMessage = {id, userId: `${localStorage.getItem("user")}`, comment}
+    return axios.put(`${apiUrl}/api/messages/${id}`, updateMessage,
     {headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`}
     })
