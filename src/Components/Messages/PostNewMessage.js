@@ -13,6 +13,12 @@ class PostNewMessage extends React.Component {
             inputValue: event.target.value
         })
     }
+
+    clearInputValue = () => {
+      this.setState({
+        inputValue: ''
+      })
+    }
   
   render() {
     return (
@@ -22,7 +28,7 @@ class PostNewMessage extends React.Component {
             Leave your comment here:
             <input type="text" value={this.state.inputValue} onChange={this.handleChange} />
             </label>
-            <input type="button" value="Post" onClick={(e) => {e.preventDefault(); this.props.handleSubmit(this.state.inputValue)}}/>
+            <input type="button" value="Post" onClick={(e) => {e.preventDefault(); this.props.handleSubmit(this.state.inputValue); this.clearInputValue()}}/>
         </form>
       </div>
     );
