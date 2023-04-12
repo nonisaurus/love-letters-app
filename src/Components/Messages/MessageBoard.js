@@ -1,10 +1,9 @@
 import React from 'react';
 import PostNewMessage from './PostNewMessage';
 import Message from './Message';
-import { getAllMessages } from '../API/api';
-import { deleteMessageById } from '../API/api';
-import { createMessage } from '../API/api';
-import { getUserById } from '../API/api';
+import { getAllMessages, updateMesageById, deleteMessageById, createMessage} from '../API/api';
+// import { getUserById } from '../API/api';
+
 
 class MessageBoard extends React.Component {
     constructor(props){
@@ -15,24 +14,55 @@ class MessageBoard extends React.Component {
 
         this.deleteMessage = this.deleteMessage.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.updateMessage = this.updateMessage.bind(this)
     }
 
     // Get all messages and display them
     componentDidMount () {
         getAllMessages()
         .then((response) => {
-            this.props.setMessages(response.data.message)
+            const messages = response.data.message
+            this.props.setMessages(messages);
         })
         .catch((error) => {
-            console.log('something went wrong', error)
+            console.log('something went wrong to display all messages >>', error)
         })
+    }
+
+    //  Create message 
+    handleSubmit = (message) => {
+        if (message.length > 0) {
+            createMessage(message)
+            .then((response) => {
+                let newMessage = {
+                    "comment": response.data.message.comment, 
+                    "userId": {_id: response.data.message.userId, username: localStorage.getItem("username")},
+                    "_id": response.data.message._id
+                }
+            let newAllMessages = this.props.messages.concat(newMessage);
+            this.props.setMessages(newAllMessages)
+        })  
+        .catch(e => console.log(`error: SAVE >>> ${e}`))
+        }
+    }
+
+    // Update message
+    updateMessage = (message, comment) => {
+        updateMesageById(message, comment)
+        .then((response) => {
+            let newMessage = {
+                "comment": comment, 
+                "userId": localStorage.getItem("user"),
+                "_id": message
+            }
+        })  
+        .catch(e => console.log(`error: UPDATE >>> ${e}`))
     }
 
     // Delete message
     deleteMessage = (id) => {
             deleteMessageById(id)
             .then((response) => {
-                console.log('delete response', response)
                 let newAllMessages = this.props.messages.filter((message) => {
                     return message._id !== id
                 })
@@ -40,25 +70,6 @@ class MessageBoard extends React.Component {
             })
             .catch(e => console.log(`Error in message delete ${e}`)) 
     }
-        
-
-    //  Create message
-    handleSubmit = (message) => {
-        if (message.length > 0) {
-          createMessage(message)
-          .then((response) => {
-          let newMessage = {
-              "comment": response.data.message.comment, 
-              "userId": {_id: response.data.message.userId, username: localStorage.getItem("username")},
-              "_id": response.data.message._id
-          }
-          let newAllMessages = [newMessage, ...this.props.messages]
-          this.props.setMessages(newAllMessages)
-          })  
-          .catch(e => console.log(`error: SAVE >>> ${e}`))
-      }
-      }
-
 
 
   render() {
@@ -68,9 +79,12 @@ class MessageBoard extends React.Component {
             comment={message.comment}
             key={index}
             id={message._id}
+            userId={message.userId}
             deleteMessage={this.deleteMessage}
+            updateMessage={this.updateMessage}
+            messages={this.props.messages}
         />
-    ));
+    )).reverse();
 
     return (
         <div>
