@@ -1,0 +1,85 @@
+const ReadOnlyProfile = (props) => { 
+    return (
+        <>
+        <h1>READ</h1>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Username</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue={props.username}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue={props.email}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue='******'
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>First Name</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue={props.firstName}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Last Name</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue={props.lastName}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date of birth</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue={props.dateOfBirth}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bio</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue={props.bio}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Points</td>
+                        <td>
+                            <input 
+                                disabled
+                                defaultValue={props.points}
+                            />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </>
+    )
+}
+
+export default ReadOnlyProfile
