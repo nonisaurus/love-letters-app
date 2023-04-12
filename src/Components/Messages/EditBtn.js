@@ -1,7 +1,10 @@
 function EditBtn(props) {
     return (
       <>
-        <button>Edit</button>
+      {props.buttonName === 'edit' ?  
+      (<button onClick={(e) => {e.preventDefault(); props.updateButton('save');}}>Edit</button>) :  
+      (<button onClick={(e) => {e.preventDefault(); props.updateButton('edit'); props.updateMessage(props.id, props.comment)}}>Save</button>)}
+       
       </>
     );
   }
