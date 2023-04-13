@@ -66,9 +66,6 @@ class MessageBoard extends React.Component {
 
   render() {
     const allMessages = this.props.messages.map((message, index) => (
-        console.log('username >>',message.userId.username),
-        console.log('message >>',message),
-        console.log('userID >>',message.userId),
         <Message
             username={message.userId.username}
             comment={message.comment}

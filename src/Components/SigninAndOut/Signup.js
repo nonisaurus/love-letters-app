@@ -1,9 +1,6 @@
 import React from 'react';
 import { getUserByUsername } from '../../Components/API/api';
 import { createUser } from '../../Components/API/api';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-
 
 class SignUp extends React.Component {
   constructor(props){
