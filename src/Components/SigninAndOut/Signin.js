@@ -1,5 +1,7 @@
 import React from 'react';
 import { logInRoute } from '../API/api';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 class SignIn extends React.Component {
   constructor(props){
@@ -30,28 +32,47 @@ class SignIn extends React.Component {
   }
 
   handleSignin = () => {
-    
     logInRoute(this.state.username, this.state.password)
         .then((response) => {
-            localStorage.setItem("jwt", response.token);
-            localStorage.setItem("user", response.userId);
-            localStorage.setItem("username", response.username);
+          // console.log("response.token:", response.token);
+          // console.log('response.token LOCAL STORAGE',window.localStorage.getItem("jwt", response.token))
+          window.localStorage.setItem("jwt", response.token);
+          
+          // console.log("response.userId:", response.userId);
+          // console.log('response.ID LOCAL STORAGE', window.localStorage.getItem("user", response.userId))
+          window.localStorage.setItem("user", response.userId);
+          
+          // console.log("response.username:", response.username);
+          // console.log('response.USERNAME LOCAL STORAGE',window.localStorage.getItem("username", response.username))
+          window.localStorage.setItem("username", response.username);
+
+          // const jwt = localStorage.getItem("jwt");
+          // // console.log('jwt', jwt);
+
+          // const user = localStorage.getItem("user");
+          // console.log('user', user);
+
+          // const username = localStorage.getItem("username");
+          // console.log('username',username);
+
             this.props.userSignedIn()
             this.setState({
               username: '',
-              password: '',
-              signInMessage: 'Successful sign in'
+              password: ''
             })
         })
         .catch((error) => {
             console.log('handlesignin error', error);
+            this.setState({
+              signInMessage: 'Something went wrong.. try again!'
+            })
         });
   }
 
 
   render() {
     return (
-      <div>
+      <>
             <h1>Sign In</h1>
             <div>
                 <label >Username: </label>
@@ -61,7 +82,18 @@ class SignIn extends React.Component {
                 <button onClick={this.handleSignin}>Sign in!</button>
                 <p >{this.state.signInMessage}</p>
             </div>
-      </div>
+            {/* <Form>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" placeholder="Enter username" onChange={this.handleUsernameChange} />
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange}/>
+                <Button variant="primary" type="submit" onClick={this.handleSignin}>
+                Submit
+              </Button>
+              </Form.Group>
+            </Form> */}
+      </>
     );
   }
 }

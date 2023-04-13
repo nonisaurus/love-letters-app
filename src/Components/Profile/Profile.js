@@ -4,6 +4,7 @@ import ReadOnlyProfile from './ReadOnlyProfile';
 import EditProfileBtn from './EditProfileBtn';
 import DeleteProfileBtn from './DeleteProfileBtn';
 import { getUserById, updateUserById, deleteUserById } from '../API/api';
+import { Container } from 'react-bootstrap';
 
 class Profile extends React.Component {
     constructor(props){
@@ -88,10 +89,8 @@ class Profile extends React.Component {
     // delete user
     deleteProfile = () => {
         const userId = localStorage.getItem('user')
-        console.log('id', userId)
         deleteUserById(userId)
         .then((response) => {
-            console.log('response >', response)
             localStorage.removeItem('user')
             localStorage.removeItem('username')
             localStorage.removeItem('jwt')
@@ -104,7 +103,7 @@ class Profile extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container className='text-center'>
         <h1>Profile</h1>
         {this.state.isEdit === 'edit' ? 
         (<ReadOnlyProfile   username={this.state.user.username}
@@ -133,7 +132,7 @@ class Profile extends React.Component {
                         updateProfile={this.updateProfile}/>
         <DeleteProfileBtn deleteProfile={this.deleteProfile}/>
 
-    </div>
+    </Container>
     );
   }
 }

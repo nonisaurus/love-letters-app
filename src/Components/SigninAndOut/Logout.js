@@ -1,5 +1,7 @@
 import React from 'react'
 import { logOutRoute } from '../API/api'
+import Button from 'react-bootstrap/Button';
+import { Container } from 'react-bootstrap';
 
 class Logout extends React.Component {
     constructor(props){
@@ -19,11 +21,12 @@ class Logout extends React.Component {
 
   render() {
     return (
-      <div>
-            <h1>Logout</h1> 
-            <p>Sad to see you go. Click on the log out button to leave.</p>       
-            <button onClick={this.logOut}> Log out </button>  
-      </div>
+      <Container className='text-center'>            
+          <h1>Logout</h1> 
+          <p>Sad to see you go. Click on the log out button to leave.</p>   
+          {/* <button onClick={this.logOut}> Log out </button>      */}
+          <Button variant="primary" onClick={this.logOut}> Log out </Button>
+      </Container>
     );
   }
 }

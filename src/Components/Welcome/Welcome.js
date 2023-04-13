@@ -1,9 +1,11 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+
 
 class Welcome extends React.Component {
   render() {
     return (
-      <div>
+      <Container className='text-center'>
         <div>
             <h1>Love Letters</h1>
             <p>Love Letter is a card game introduced in May 2012 and designed by Seiji Kanai. Each player aims to deliver a love letter to the Princess with the assistance of relatives and acquaintances.</p>
@@ -19,7 +21,7 @@ class Welcome extends React.Component {
                 <p>github icon</p>
             </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }

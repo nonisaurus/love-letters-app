@@ -1,11 +1,12 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
 
 class Play extends React.Component {
   render() {
     return (
-      <div>
-            <h1>Lets Play</h1>
-      </div>
+      <Container className='text-center'>            
+        <h1>Lets Play</h1>
+      </Container>
     );
   }
 }

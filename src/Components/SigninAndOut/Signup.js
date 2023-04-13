@@ -1,6 +1,8 @@
 import React from 'react';
 import { getUserByUsername } from '../../Components/API/api';
 import { createUser } from '../../Components/API/api';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 
 class SignUp extends React.Component {
@@ -59,7 +61,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className='signup'>
+      <>
         <h1>Sign Up</h1>
         <div>
             <label >Username: </label>
@@ -69,7 +71,19 @@ class SignUp extends React.Component {
             <button onClick={this.handleSignUp}>Sign up!</button>
             <p>{this.state.signUpMessage}</p>
         </div>
-      </div> 
+        {/* <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="email" placeholder="Enter username" value={this.state.username} onChange={this.handleUsernameChange} />
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
+            <Button variant="primary" type="submit" onClick={this.handleSignUp}>
+            Submit
+          </Button>
+          <p>{this.state.signUpMessage}</p>
+          </Form.Group>
+        </Form> */}
+      </> 
     );
   }
 }

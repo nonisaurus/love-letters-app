@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
 import Welcome from './Components/Welcome/Welcome';
 import Profile from './Components/Profile/Profile';
@@ -71,15 +73,16 @@ class App extends React.Component {
         <div className="App">
           <Router>
 
-              <nav>
-                <ul>
-                  <li><Link to="/">Welcome</Link></li>
-                  <li><Link to="/api/user">Profile</Link></li>
-                  <li><Link to="/api/card">Play</Link></li>
-                  <li><Link to="/api/messageboard">Messageboard</Link></li>
-                  <li><Link to="/api/login">{!this.state.auth ? 'Join' : 'Logout'}</Link></li>
-                </ul>
-              </nav>
+              <Navbar bg="light">
+                <Container>
+
+                  <Navbar.Brand><Link to="/">Welcome</Link></Navbar.Brand>
+                  <Navbar.Brand><Link to="/api/user">Profile</Link></Navbar.Brand>
+                  <Navbar.Brand><Link to="/api/card">Play</Link></Navbar.Brand>
+                  <Navbar.Brand><Link to="/api/messageboard">Messageboard</Link></Navbar.Brand>
+                  <Navbar.Brand><Link to="/api/login">{!this.state.auth ? 'Join' : 'Logout'}</Link></Navbar.Brand>
+                </Container>
+              </Navbar>
 
               <Routes>
                 <Route exact path="/" element={<Welcome />} />
@@ -97,7 +100,10 @@ class App extends React.Component {
                                                                           username={this.state.username}/>) :
                                                           (<Navigate replace to = {"/"} />)} />
                 <Route path="/api/login" element={!this.state.auth ? 
-                                                  (<Join userSignedIn={this.userSignedIn}/>) : 
+                                                  (<Join  userSignedIn={this.userSignedIn}
+                                                          username={this.state.username}
+                                                          user_id={this.state.user_id}
+                                                          />) : 
                                                   (<Logout  userSignedIn={this.userSignedIn}
                                                             userSignedOut={this.userSignedOut}/>)}/>
 

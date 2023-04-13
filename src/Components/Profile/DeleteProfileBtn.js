@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 
 
 const DeleteProfileBtn = (props) => { 
@@ -10,7 +11,7 @@ const DeleteProfileBtn = (props) => {
       navigate(path);
     }
 
-    return (<button  onClick={(e) => {e.preventDefault(); props.deleteProfile(); routeChange()}}>Delete Profile for good</button>)
+    return (<Button  onClick={(e) => {e.preventDefault(); props.deleteProfile(); routeChange()}}>Delete Profile for good</Button>)
 }
 
 export default DeleteProfileBtn
