@@ -2,7 +2,7 @@ let apiUrl;
 const expressPort = 5000;
 const apiUrls = {
     development: `http://localhost:${expressPort}`,
-    production: `https://example`
+    production: `https://love-letters-fontend.netlify.app/`
 }
 
 if(window.location.hostname === 'localhost') {
