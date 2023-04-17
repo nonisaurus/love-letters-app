@@ -84,15 +84,16 @@ To manage the project, I used a notebook to write down my initial thoughts. I us
 I made sure to document my project process so I could understand it better in the future, and I think I succeeded in doing so. This was the first project that I genuinely enjoyed working on without constantly doubting myself. Though I did encounter errors and some tasks took longer than expected, I still found the experience enjoyable. My time frame of seven days just flew by. There were definitely times where I had to refer back to my notes to remember what I was doing, even after only a few days of working on the project. It was pretty complex with a lot of different parts, but luckily my notes from the bootcamp I did with General Assembly helped me create a solid foundation for this project.
 
 ### **Backend**
-<u> Set up application </u>
+**Set up application**
 ```
 npm init  - to generate a package.json file 
 touch server.js - to create js file
 npm install express --save - to install the Express.js framework 
 npm install mongoose --save to install the Mongoose library
 ```
+<br>
 
-<u> Routes </u>
+**Routes**
 
 <br>
 
@@ -114,13 +115,18 @@ const localDB = process.env.TESTENV ? database.test : database.development;
 
 const currentDB = process.env.MONGODB_URI || localDB;
 ```
-<u> Models </u>
+
+<br>
+
+**Model**
 
 <br>
 
 I decided to have 3 models. One for the users, one for the cards and one for the messages. There is full CRUD on the user and the message models.
 
-<u> Authentication </u>
+<br>
+
+**Authentication**
 
 <br> 
 
@@ -161,20 +167,24 @@ passport.authenticate('jwt', { session: false })
 
 
 ### **Frontend**
-<u> Set up application </u>
+**Set up application**
 ```
 npx create-react-app love-letters-app to create the app
 npm install axios --save to be able to use axios
 npm install react-router-dom to be able to use reactrouter
 ```
-<u> apiConfig.js </u>
+
+<br>
+
+**apiConfig.js**
 
 <br>
 
 This code checks whether the application is being accessed from a local development server or a remote production server.
 
+<br>
 
-<u> Signup </u>
+**Signup**
 
 <br>
 
@@ -212,7 +222,9 @@ I created a function that checks if the username exists in a database and create
     }
   }
 ```
-<u> Signin </u>
+<br>
+
+**Signin**
 
 <br>
 
@@ -236,7 +248,9 @@ The way to log the user in by sending a request to a login endpoint with a usern
         });
   }
 ```
-<u> Signout </u>
+<br>
+
+**Signout**
 
 <br>
 
@@ -250,13 +264,17 @@ To log out the user, this code sends a request to a logout endpoint with the use
         })
     }
 ```
-<u> Editing profile/user </u>
+<br>
+
+**Editing profile/user**
 
 <br>
 
 I created two versions of the same component: an edit version and a show version. I used an API call and an onClick function to implement the toggling between the two versions. This allowed me to display a form for editing the component's content and then display the updated content in the show version.
 
-<u> Deleting profile/user </u>
+<br>
+
+**Deleting profile/user**
 
 <br>
 
@@ -280,9 +298,9 @@ export const deleteCardById= (id) => {
         .catch(e => console.log(`error: DELETE PROFILE >>> ${e}`))
     }
 ```
+<br>
 
-
-<u> Message board </u>
+**Message board**
 
 <br>
 
