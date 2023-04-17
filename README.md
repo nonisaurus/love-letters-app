@@ -12,15 +12,76 @@ I worked on this project independently with a 7 day timeframe.
 
 ## Technologies Used
 
+Back End:
+
+<br>
+
+- Node.js with Express
+- MongoDB with Mongoose
+- bcrypt
+- cors
+- jsonwebtoken
+- passport
+- passport-jwt
+
+<br>
+
+Front End:
+
+<br>
+
+- React
+- React Router DOM
+- axios
+
+<br>
+
+Development Tools:
+
+<br>
+
+- lucid.app for ERD
+- Canva for wireframes
+- Git and GitHub for version control 
+
 
 <br>
 
 ## Brief
+- Have at least 2 models (more if it makes sense)
+    - Auth is a requirement
+- Have full CRUD on at least one of your models
+- Be able to Add/Delete on any remaining models
+- Have high quality code:
+    - Commit often and use meaningful commit messages
+    - Document your code well.
+    - Follow accepted naming conventions
+    - Consistent indentation
+    - Well-structured and readable code
+    - Semantic naming of variables, functions, CSS classes, etc.
+    - Short and clear functions that do one thing
+    - Efficient code - if you have your MVP, refactor
 
 
 <br>
 
 ## Planning
+For the wireframe, I used Canva to create a basic layout of the user interface (UI) design. I included all the necessary features and functionalities required for the project. This helped me to visualise the final product and make changes to the design as necessary.
+
+Next, I created an Entity Relationship Diagram (ERD) to map out the database schema for the project. This allowed me to identify the different entities, their relationships, and the attributes required for each entity.
+
+Once the planning was done, I began to work on the backend of the project. I used Node.js and Express.js to create the backend API, which would serve data to the front end. I also used MongoDB to store and manage the data. 
+
+After the backend was complete, I moved on to the front end. I used React.js to create an interactive UI.
+
+To manage the project, I used a notebook to write down my initial thoughts. I used Github to manage code changes on the project.
+
+![1](./src/img/plan1.jpeg)
+![2](./src/img/plan2.jpeg)
+![3](./src/img/plan3.jpeg)
+![4](./src/img/plan4.jpeg)
+![5](./src/img/plan5.jpeg)
+![6](./src/img/erd.png)
 
 
 <br>
@@ -38,7 +99,9 @@ npm install mongoose --save to install the Mongoose library
 ```
 
 <u>Routes</u>
+
 <br>
+
 I created routes for index, cards, users, messages then connected them to server.js
 ```
 const indexRouter = require('./routes/index');
@@ -58,11 +121,15 @@ const localDB = process.env.TESTENV ? database.test : database.development;
 const currentDB = process.env.MONGODB_URI || localDB;
 ```
 <u>Models</u>
+
 <br>
+
 I decided to have 3 models. One for the users, one for the cards and one for the messages. There is full CRUD on the user and the message models.
 
 <u>Authentication</u>
+
 <br> 
+
 I used the Passport JWT strategy for Node.js authentication. 
 npm install cors  - -save to control which domains are allowed to access their APIs and prevent unauthorised access to sensitive data
 ```
@@ -97,7 +164,7 @@ passport.authenticate('jwt', { session: false })
 ```
 
 <br>
-<br>
+
 
 ### **Frontend**
 <u>Set up application</u>
@@ -107,14 +174,18 @@ npm install axios --save to be able to use axios
 npm install react-router-dom to be able to use reactrouter
 ```
 <u>apiConfig.js</u>
+
 <br>
+
 This code checks whether the application is being accessed from a local development server or a remote production server.
 
 
 <u>Signup</u>
-<br>
-I created a function that checks if the username exists in a database and creates a new user if it doesn't exist and the username and password meet the length requirements. It displays error messages if the username already exists or if the username and password are not long enough.
 
+<br>
+
+I created a function that checks if the username exists in a database and creates a new user if it doesn't exist and the username and password meet the length requirements. It displays error messages if the username already exists or if the username and password are not long enough.
+```
   handleSignUp = () => {
     if (this.state.username.length > 0 ) {
       getUserByUsername(this.state.username)
@@ -146,10 +217,13 @@ I created a function that checks if the username exists in a database and create
       })
     }
   }
+```
+<u>Signin</u>
 
-Signin
+<br>
+
 The way to log the user in by sending a request to a login endpoint with a username and password. If successful, it saves the user's token and ID in local storage and triggers a callback function.
-
+```
   handleSignin = () => {
     logInRoute(this.state.username, this.state.password)
         .then((response) => {
@@ -167,10 +241,13 @@ The way to log the user in by sending a request to a login endpoint with a usern
             console.log('handlesignin error', error);
         });
   }
+```
+<u>Signout</u>
 
-Signout
+<br>
+
 To log out the user, this code sends a request to a logout endpoint with the user's ID obtained from local storage, and if successful, it clears the local storage and triggers a callback function to indicate the user is signed out.
-
+```
  logOut = (event) => {
         logOutRoute(localStorage.getItem('user'))
         .then((response) => {
@@ -178,14 +255,19 @@ To log out the user, this code sends a request to a logout endpoint with the use
             this.props.userSignedOut()
         })
     }
+```
+<u>Editing profile/user</u>
 
-Editing profile/user
+<br>
+
 I created two versions of the same component: an edit version and a show version. I used an API call and an onClick function to implement the toggling between the two versions. This allowed me to display a form for editing the component's content and then display the updated content in the show version.
 
-Deleting profile/user
+<u>Deleting profile/user</u>
+
+<br>
+
 To delete the user's data, I retrieved their ID  and used it to delete their record from the database. Then, I updated the authentication state and cleared the local storage before redirecting them to the welcome page.
-
-
+```
 export const deleteCardById= (id) => {
     return axios.get(`${apiUrl}/api/cards/${id}`)
 }
@@ -203,18 +285,21 @@ export const deleteCardById= (id) => {
         })
         .catch(e => console.log(`error: DELETE PROFILE >>> ${e}`))
     }
+```
 
 
+<u>Message board</u>
 
-Message board
-Created a state in App.js for all the messages.
-Created a function that will re render this state in App.js.
-Imported API calls and used componentDidMount lifecycle method to display all the messages in MessageBoard.js. I then passed the response data to the messages state through the setMessages() function. This way, the state will be re-rendered to display either the new messages and the saved ones when the page loads.
-Created a variable and used a loop to iterate over the messages stored in the state. Within the loop, I passed the required data as props to the Message component, which displays each message. Finally, I returned the variable containing the messages if the length of the messages state was greater than 0. Otherwise, I displayed a message indicating that there were no messages to display.
-Created a function to delete a message using the deleteMessageById API call. Within this function, I filtered the current messages state to remove the message with the given ID, and updated the state using the setMessages function to re-render the updated list of messages without the deleted message. Passed the deleteMessage function as a prop to the Message component, allowing users to delete messages by clicking a button within each message.
-Created a form to allow users to submit new messages through the PostNewMessage component using the createMessage API call. Within the handleSubmit function, I checked if the message input was not empty, and if so, created a new message object with the necessary data and added it to the beginning of the current messages state using the setMessages function.
-The "Save" button triggers updateMessage, which sends a PUT request to the server to update the message with the new comment. On success, the new comment is displayed and stored in the Message component state, otherwise an error is logged to the console.
-And with that I created a full CRUD on the Message Model.
+<br>
+
+- Created a state in App.js for all the messages.
+- Created a function that will re render this state in App.js.
+- Imported API calls and used componentDidMount lifecycle method to display all the messages in MessageBoard.js. I then passed the response data to the messages state through the setMessages() function. This way, the state will be re-rendered to display either the new messages and the saved ones when the page loads.
+- Created a variable and used a loop to iterate over the messages stored in the state. Within the loop, I passed the required data as props to the Message component, which displays each message. Finally, I returned the variable containing the messages if the length of the messages state was greater than 0. Otherwise, I displayed a message indicating that there were no messages to display.
+- Created a function to delete a message using the deleteMessageById API call. Within this function, I filtered the current messages state to remove the message with the given ID, and updated the state using the setMessages function to re-render the updated list of messages without the deleted message. Passed the deleteMessage function as a prop to the Message component, allowing users to delete messages by clicking a button within each message.
+- Created a form to allow users to submit new messages through the PostNewMessage component using the createMessage API call. Within the handleSubmit function, I checked if the message input was not empty, and if so, created a new message object with the necessary data and added it to the beginning of the current messages state using the setMessages function.
+- The "Save" button triggers updateMessage, which sends a PUT request to the server to update the message with the new comment. On success, the new comment is displayed and stored in the Message component state, otherwise an error is logged to the console.
+- And with that I created a full CRUD on the Message Model.
 
 
 <br>
@@ -286,7 +371,7 @@ This could be resolved with a refresh token as it is long-lived and can be used 
 
 <br>
 
-## Future Improvements
+## Future Improvements
 
 My project has a basic design with minimal styling, as my main focus was on its functionality. Despite its simplicity, I believe it will serve as a solid foundation for my upcoming project, which I am eager to continue building. 
 
