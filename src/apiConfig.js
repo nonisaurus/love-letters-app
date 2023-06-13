@@ -2,7 +2,7 @@ let apiUrl;
 const expressPort = 5000;
 const apiUrls = {
     development: `http://localhost:${expressPort}`,
-    production: `love-letters.fly.dev`
+    production: `https://love-letters.fly.dev`
 }
 
 if(window.location.hostname === 'localhost'|| window.location.hostname === '127.0.0.1') {
