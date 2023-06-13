@@ -26,7 +26,6 @@ class SignUp extends React.Component {
 
   handleSignUp = () => {
     if (this.state.username.length > 0 ) {
-      console.log('handle sign up >>>')
       console.log('getuserbyname >>>', this.state.username)
       getUserByUsername(this.state.username)
       .then((response) => {
