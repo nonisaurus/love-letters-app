@@ -26,8 +26,12 @@ class SignUp extends React.Component {
 
   handleSignUp = () => {
     if (this.state.username.length > 0 ) {
+      console.log('handle sign up >>>')
+      console.log('getuserbyname >>>', this.state.username)
       getUserByUsername(this.state.username)
       .then((response) => {
+        console.log('first then')
+        console.log('response >>> ', response)
         if(response.data.user.username) {
             if(this.state.username.length >= 6) {
                 this.setState({
@@ -37,6 +41,7 @@ class SignUp extends React.Component {
         }
       })
       .catch((error) => {
+        console.log('error in handleSignUP >>>', error)
         if(this.state.username.length >= 6 && this.state.password.length >= 6) {
           createUser(this.state.username, this.state.password)      
           .then((response) => {
