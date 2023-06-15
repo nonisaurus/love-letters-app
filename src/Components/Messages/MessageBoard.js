@@ -15,10 +15,11 @@ class MessageBoard extends React.Component {
     }
 
     // Get all messages and display them
-    componentDidMount () {
+    componentDidMount = () => {
         getAllMessages()
         .then((response) => {
             const messages = response.data.message
+            console.log('messages >>>>', messages)
             this.props.setMessages(messages);
         })
         .catch((error) => {

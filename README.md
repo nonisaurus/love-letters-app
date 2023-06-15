@@ -2,7 +2,7 @@
 
 For this project, I built a full-stack web application using the MERN stack. The application I created serves as a foundation for my future projects and includes features such as user authentication, database management, and basic CRUD functionality. Despite the tight deadline of 7 days, I enjoyed the process of building the application and gained valuable experience.
 
-https://love-letters-fontend.netlify.app/api/login
+https://love-letters-frontend.netlify.app/
 
 <br>
 
